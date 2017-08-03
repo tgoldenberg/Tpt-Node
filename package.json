@@ -1,8 +1,8 @@
 {
   "name": "@commandiv/tpt-api",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "main": "build/index.js",
+  "main": "build/tpt-api.min.js",
   "scripts": {
     "start": "babel-node index.js",
     "build": "WEBPACK_ENV=build webpack",
