@@ -31,25 +31,18 @@ var config = {
   entry: __dirname + '/src/index.js',
   devtool: 'sourcemap',
   target: 'node',
-  node: {
-    console: false,
-    global: false,
-    process: false,
-    Buffer: false,
-    __filename: false,
-    __dirname: false
-  },
   output: {
     path: __dirname + '/build',
-    filename: outputFile
+    filename: outputFile,
+    libraryTarget: 'umd'
   },
   externals: nodeModules,
   module: {
     loaders: [
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.js)$/,
         loader: 'babel-loader',
-        exclude: /(node_modules|bower_components)/
+        exclude: /(node_modules)/
       }
     ]
   },
