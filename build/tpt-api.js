@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("axios"), require("flat-file-db"), require("dotenv"));
+	else if(typeof define === 'function' && define.amd)
+		define(["axios", "flat-file-db", "dotenv"], factory);
+	else if(typeof exports === 'object')
+		exports["Tpt"] = factory(require("axios"), require("flat-file-db"), require("dotenv"));
+	else
+		root["Tpt"] = factory(root["axios"], root["flat-file-db"], root["dotenv"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -69,6 +79,10 @@
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _axios = __webpack_require__(1);
 
@@ -2530,7 +2544,8 @@ function Tpt(apiKey, apiSecret, endpoint) {
   };
 };
 
-module.exports = Tpt;
+exports.default = Tpt;
+module.exports = exports['default'];
 
 /***/ }),
 /* 1 */
@@ -2552,4 +2567,5 @@ module.exports = require("dotenv");
 
 /***/ })
 /******/ ]);
+});
 //# sourceMappingURL=tpt-api.js.map

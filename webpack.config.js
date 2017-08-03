@@ -34,6 +34,7 @@ var config = {
   output: {
     path: __dirname + '/build',
     filename: outputFile,
+    library: 'Tpt',
     libraryTarget: 'umd'
   },
   externals: nodeModules,
@@ -42,7 +43,7 @@ var config = {
       {
         test: /(\.js)$/,
         loader: 'babel-loader',
-        exclude: /(node_modules)/
+        exclude: /(node_modules|build)/
       }
     ]
   },
