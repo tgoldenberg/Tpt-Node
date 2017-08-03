@@ -228,7 +228,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
       try {
         this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/transfers`;
-        let response = await request.get(url);
+        let response = await request.get(url, { params: options.params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -287,7 +287,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
       try {
         this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/sources`;
-        let response = await request.get(url);
+        let response = await request.get(url, { params: options.params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -374,7 +374,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
       try {
         this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/orders`;
-        let response = await request.get(url);
+        let response = await request.get(url, { params: options.params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -447,7 +447,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
       try {
         this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/portfolio/equities`;
-        let response = await request.get(url);
+        let response = await request.get(url, { params: options.params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -457,11 +457,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getHistory: (options) => {
+    getHistory: ({ account_id, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/accounts/${options.account_id}/portfolio/cash/USD/transactions`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/accounts/${account_id}/portfolio/cash/USD/transactions`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -471,11 +471,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    symbolHistory: (options) => {
+    symbolHistory: ({ account_id, symbol, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/accounts/${options.account_id}/portfolio/equities/${options.symbol}/transactions`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/accounts/${account_id}/portfolio/equities/${symbol}/transactions`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -488,11 +488,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
   };
 
   this.market = {
-    getSingleQuote: (options) => {
+    getSingleQuote: ({ symbol, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/quote`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/market/symbols/${symbol}/quote`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -502,11 +502,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getOptionChain: (options) => {
+    getOptionChain: ({ symbol, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/options`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/market/symbols/${symbol}/options`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -516,11 +516,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getIntraday: (options) => {
+    getIntraday: ({ symbol, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/timeseries/intraday?start=${options.start}&end=${options.end}`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/market/symbols/${symbol}/timeseries/intraday`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -530,11 +530,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getEndOfDayHistory: (options) => {
+    getEndOfDayHistory: ({ symbol, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbol/${options.symbol}/timeseries/eod?start=${options.start}&end=${options.end}`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/market/symbol/${symbol}/timeseries/eod`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -544,11 +544,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getSplits: (options) => {
+    getSplits: ({ symbol, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbol/${options.symbol}/splits`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/market/symbol/${symbol}/splits`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -558,11 +558,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getDividends: (options) => {
+    getDividends: ({ symbol, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbol/${options.symbol}/dividends`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/market/symbol/${symbol}/dividends`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -572,11 +572,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getMultiQuote: (options) => {
+    getMultiQuote: ({ symbols, params }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/quote?symbols=${options.symbols}`;
-        let response = await request.get(url);
+        let url = `${this.endpoint}/v1/market/quote?symbols=${symbols}`;
+        let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -586,10 +586,10 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getHours: (options) => {
+    getHours: ({ date }) => {
       try {
         this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/hours/${options.date}`;
+        let url = `${this.endpoint}/v1/market/hours/${date}`;
         let response = await request.get(url);
         if (response.status === 200) {
           return response.data;
