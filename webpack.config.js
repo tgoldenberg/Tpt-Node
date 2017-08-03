@@ -12,26 +12,35 @@ var plugins = [ ];
 
 if (env === 'build') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = libraryName + 'min.js';
+  outputFile = libraryName + '.min.js';
 } else {
   outputFile = libraryName + '.js';
 }
 
-var nodeModules = {};
-fs.readdirSync('node_modules')
-  .filter(function(x) {
-    return ['.bin'].indexOf(x) === -1;
-  })
-  .forEach(function(mod) {
-    nodeModules[mod] = 'commonjs ' + mod;
-  });
+var nodeModules = fs.readdirSync("node_modules")
+  .reduce(function(acc, mod) {
+    if (mod === ".bin") {
+      return acc
+    }
+
+    acc[mod] = "commonjs " + mod
+    return acc
+  }, {})
 
 var config = {
   entry: __dirname + '/src/index.js',
-  devtool: 'source-map',
+  devtool: 'sourcemap',
   target: 'node',
+  node: {
+    console: false,
+    global: false,
+    process: false,
+    Buffer: false,
+    __filename: false,
+    __dirname: false
+  },
   output: {
-    path: __dirname + '/lib',
+    path: __dirname + '/build',
     filename: outputFile
   },
   externals: nodeModules,
@@ -44,11 +53,9 @@ var config = {
       }
     ]
   },
-  // resolve: {
-  //   root: path.resolve('./src'),
-  //   extensions: [ '', '.js' ]
-  // },
-  plugins: plugins
+  resolve: {
+    extensions: [".js" ]
+  },
 };
 
 module.exports = config;

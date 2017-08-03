@@ -715,4 +715,4 @@ function Tpt(apiKey, apiSecret, endpoint) {
 };
 
 
-export default Tpt;
+module.exports = Tpt;

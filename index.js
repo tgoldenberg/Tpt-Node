@@ -1,3 +1,3 @@
-const Tpt = require('./lib/tpt-api.js');
+const Tpt = require('./build/tpt-api.min.js');
 
 module.exports = Tpt;
