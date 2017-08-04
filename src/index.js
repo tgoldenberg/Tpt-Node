@@ -1,5 +1,6 @@
 import axios from 'axios';
 import flatfile from 'flat-file-db';
+import has from 'lodash/has';
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -14,6 +15,33 @@ const request = axios.create({
     'Content-Type': 'application/json',
   }
 });
+
+class Transfer {
+  constructor() {
+    this.transfers = [ ];
+    this.endpoint = process.env.TPT_ENDPOINT;
+  }
+  async list(path) {
+    try {
+      var response = await request.get(path);
+      console.log('> transfer response: ', response.statusText);
+      if (response.status !== 200) {
+        return;
+      }
+      this.transfers =  [ ...this.transfers, ...response.data.items ];
+      var hasTail = has(response.data, '_tail');
+      if (!hasTail) {
+        return;
+      } else {
+        var url = `${process.env.TPT_ENDPOINT}${response.data._tail}`
+        await this.list(url);
+      }
+    } catch (e) {
+      console.warn(e);
+      return [ ];
+    }
+  }
+}
 
 function Tpt(apiKey, apiSecret, endpoint) {
   this.apiKey = apiKey;
@@ -74,12 +102,13 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.prepareHeaders = async function() {
     let headers = await this.formatHeaders();
     request.defaults.headers = headers;
+    console.log('> prepare headers: ', headers);
   }
 
   this.accounts = {
     create: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}`;
         let response = await request.post(url, options.body);
         if (response.status === 200) {
@@ -93,7 +122,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     get: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -107,7 +136,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getStatus: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/status`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -121,7 +150,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getApplicant: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/applicants/${applicant_id}`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -135,7 +164,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     updateApplicant: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}`;
         let response = await request.patch(url, options.body);
         if (response.status === 200) {
@@ -149,7 +178,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     updateAccount: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/applicants/${applicant_id}`;
         let response = await request.patch(url, options.body);
         if (response.status === 200) {
@@ -166,7 +195,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.documents = {
     getStatements: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/documents/statements`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -180,7 +209,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getConfirmations: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/documents/confirmations`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -197,7 +226,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.transfers = {
     create: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/transfers/${options.transfer_id}`;
         let response = await request.post(url, options.body);
         if (response.status === 200) {
@@ -211,7 +240,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     cancel: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/transfers/${options.transfer_id}`;
         let response = await request.delete(url);
         if (response.status === 200) {
@@ -225,7 +254,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     get: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/transfers`;
         let response = await request.get(url, { params: options.params });
         if (response.status === 200) {
@@ -237,9 +266,23 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
+    getAll: async ({ account_id }) => {
+      try {
+        await this.prepareHeaders();
+        let transferRequest = new Transfer();
+        let path = `${process.env.TPT_ENDPOINT}/v1/accounts/${account_id}/transfers`;
+        await transferRequest.list(path);
+
+        let result = transferRequest.transfers;
+        console.log('> get all transfers: ', result);
+        return result;
+      } catch (e) {
+        console.warn(e);
+      }
+    },
     find: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/transfers/${options.transfer_id}`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -256,7 +299,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.sources = {
     create: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/sources/${options.source_id}`;
         let response = await request.post(url, options.body);
         if (response.status === 200) {
@@ -270,7 +313,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     delete: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/sources/${options.source_id}`;
         let response = await request.delete(url);
         if (response.status === 200) {
@@ -284,7 +327,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     get: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/sources`;
         let response = await request.get(url, { params: options.params });
         if (response.status === 200) {
@@ -298,7 +341,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     find: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/sources/${options.source_id}`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -312,7 +355,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     update: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/sources/${options.source_id}`;
         let response = await request.patch(url, options.body);
         if (response.status === 200) {
@@ -326,7 +369,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     verify: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/sources/${options.source_id}/verify`;
         let response = await request.post(url, options.body);
         if (response.status === 200) {
@@ -340,7 +383,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     reverify: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/sources/${options.source_id}/reverify`;
         let response = await request.post(url);
         if (response.status === 200) {
@@ -357,7 +400,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.orders = {
     create: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/orders/${options.order_id}`;
         let response = await request.post(url, options.body);
         if (response.status === 200) {
@@ -369,11 +412,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    get: async (options) => {
+    get: async ({ account_id, params }) => {
       try {
-        this.prepareHeaders();
-        let url = `${this.endpoint}/v1/accounts/${options.account_id}/orders`;
-        let response = await request.get(url, { params: options.params });
+        await this.prepareHeaders();
+        let url = `${this.endpoint}/v1/accounts/${account_id}/orders`;
+        let response = await request.get(url, { params: params });
         if (response.status === 200) {
           return response.data;
         } else {
@@ -385,7 +428,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     find: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/orders/${options.order_id}`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -399,7 +442,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     cancel: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/orders/${options.order_id}`;
         let response = await request.delete(url);
         if (response.status === 200) {
@@ -413,7 +456,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     update: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/orders/${options.order_id}`;
         let response = await request.patch(url, options.body);
         if (response.status === 200) {
@@ -430,7 +473,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.portfolio = {
     getCash: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/portfolio/cash/USD`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -444,7 +487,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getEquities: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/portfolio/equities`;
         let response = await request.get(url, { params: options.params });
         if (response.status === 200) {
@@ -458,7 +501,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getHistory: async ({ account_id, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${account_id}/portfolio/cash/USD/transactions`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -472,7 +515,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     symbolHistory: async ({ account_id, symbol, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${account_id}/portfolio/equities/${symbol}/transactions`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -489,7 +532,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.market = {
     getSingleQuote: async ({ symbol, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${symbol}/quote`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -503,7 +546,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getOptionChain: async ({ symbol, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${symbol}/options`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -517,7 +560,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getIntraday: async ({ symbol, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${symbol}/timeseries/intraday`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -531,7 +574,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getEndOfDayHistory: async ({ symbol, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbol/${symbol}/timeseries/eod`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -545,7 +588,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getSplits: async ({ symbol, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbol/${symbol}/splits`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -559,7 +602,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getDividends: async ({ symbol, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbol/${symbol}/dividends`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -573,7 +616,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getMultiQuote: async ({ symbols, params }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/quote?symbols=${symbols}`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
@@ -587,7 +630,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getHours: async ({ date }) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/hours/${date}`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -601,7 +644,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getBrokerRatings: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/ratings`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -615,7 +658,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getEarningsEvents: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/earnings/events`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -629,7 +672,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getEarningSurprises: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/earnings/surprises`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -643,7 +686,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getFinancials: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/financials`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -657,7 +700,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getCompanyNews: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/news`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -671,7 +714,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getCompanyOwnership: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -685,7 +728,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getCompanyProfile: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/profile`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -699,7 +742,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     getCompanyRatios: async (options) => {
       try {
-        this.prepareHeaders();
+        await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/ratios`;
         let response = await request.get(url);
         if (response.status === 200) {
@@ -714,5 +757,9 @@ function Tpt(apiKey, apiSecret, endpoint) {
   };
 };
 
+let t = new Tpt(process.env.TPT_API_KEY, process.env.TPT_API_SECRET, process.env.TPT_ENDPOINT);
+let account_id = 'b11b3629-aed8-41ca-b916-16bc2a097369';
+
+t.transfers.getAll({ account_id });
 
 export default Tpt;
