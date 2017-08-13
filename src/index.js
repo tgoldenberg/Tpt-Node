@@ -431,7 +431,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
       try {
         await this.prepareHeaders();
         let orderRequest = new ObjectList();
-        let path = `${process.env.TPT_ENDPOINT}/v1/accounts/${account_id}/orders?status=filled,pending`;
+        let path = `${process.env.TPT_ENDPOINT}/v1/accounts/${account_id}/orders?status=filled`;
         await orderRequest.list(path);
 
         let result = orderRequest.items;
