@@ -274,7 +274,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
         await transferRequest.list(path);
 
         let result = transferRequest.items;
-        console.log('> get all transfers: ', result);
+        // console.log('> get all transfers: ', result);
         return result;
       } catch (e) {
         console.warn(e);
@@ -435,7 +435,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
         await orderRequest.list(path);
 
         let result = orderRequest.items;
-        console.log('> get all orders: ', result);
+        // console.log('> get all orders: ', result);
         return result;
       } catch (e) {
         console.warn(e);
