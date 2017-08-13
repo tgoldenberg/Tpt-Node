@@ -16,9 +16,9 @@ const request = axios.create({
   }
 });
 
-class Transfer {
+class ObjectList {
   constructor() {
-    this.transfers = [ ];
+    this.items = [ ];
     this.endpoint = process.env.TPT_ENDPOINT;
   }
   async list(path) {
@@ -28,7 +28,7 @@ class Transfer {
       if (response.status !== 200) {
         return;
       }
-      this.transfers =  [ ...this.transfers, ...response.data.items ];
+      this.items =  [ ...this.items, ...response.data.items ];
       var hasTail = has(response.data, '_tail');
       if (!hasTail) {
         return;
@@ -269,11 +269,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
     getAll: async ({ account_id }) => {
       try {
         await this.prepareHeaders();
-        let transferRequest = new Transfer();
+        let transferRequest = new ObjectList();
         let path = `${process.env.TPT_ENDPOINT}/v1/accounts/${account_id}/transfers`;
         await transferRequest.list(path);
 
-        let result = transferRequest.transfers;
+        let result = transferRequest.items;
         console.log('> get all transfers: ', result);
         return result;
       } catch (e) {
@@ -423,6 +423,20 @@ function Tpt(apiKey, apiSecret, endpoint) {
         } else {
           return { error: response.statusText };
         }
+      } catch (e) {
+        console.warn(e);
+      }
+    },
+    getAll: async ({ account_id, params }) => {
+      try {
+        await this.prepareHeaders();
+        let orderRequest = new ObjectList();
+        let path = `${process.env.TPT_ENDPOINT}/v1/accounts/${account_id}/orders?status=filled,pending`;
+        await orderRequest.list(path);
+
+        let result = orderRequest.items;
+        console.log('> get all orders: ', result);
+        return result;
       } catch (e) {
         console.warn(e);
       }
