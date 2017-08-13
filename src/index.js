@@ -772,9 +772,9 @@ function Tpt(apiKey, apiSecret, endpoint) {
   };
 };
 
-let t = new Tpt(process.env.TPT_API_KEY, process.env.TPT_API_SECRET, process.env.TPT_ENDPOINT);
-let account_id = 'b11b3629-aed8-41ca-b916-16bc2a097369';
-
-t.transfers.getAll({ account_id });
+// let t = new Tpt(process.env.TPT_API_KEY, process.env.TPT_API_SECRET, process.env.TPT_ENDPOINT);
+// let account_id = 'b11b3629-aed8-41ca-b916-16bc2a097369';
+//
+// t.transfers.getAll({ account_id });
 
 export default Tpt;
