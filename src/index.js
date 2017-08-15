@@ -30,7 +30,7 @@ class ObjectList {
       }
       this.items =  [ ...this.items, ...response.data.items ];
       var hasTail = has(response.data, '_tail');
-      if (!hasTail) {
+      if (!hasTail || response.data.items.length < 10) {
         return;
       } else {
         var url = `${process.env.TPT_ENDPOINT}${response.data._tail}`
