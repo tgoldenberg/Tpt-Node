@@ -6,7 +6,9 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const db = flatfile.sync('/tmp/token.db');
+const dbName = process.env.TPT_ENDPOINT === 'https://api.thirdparty.com' ? 'production-tpt-token' : 'development-tpt-token';
+
+const db = flatfile.sync(`/tmp/${dbName}.db`);
 const MINUTE = 1000 * 60;
 
 const request = axios.create({
