@@ -516,16 +516,15 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    getHistory: async ({ account_id, params }) => {
+    getHistory: async ({ account_id }) => {
       try {
         await this.prepareHeaders();
-        let url = `${this.endpoint}/v1/accounts/${account_id}/portfolio/cash/USD/transactions`;
-        let response = await request.get(url, { params });
-        if (response.status === 200) {
-          return response.data;
-        } else {
-          return { error: response.statusText };
-        }
+        let historyRequest = new ObjectList();
+        let path = `${this.endpoint}/v1/accounts/${account_id}/portfolio/cash/USD/transactions`;
+        await historyRequest.list(path);
+
+        let result = historyRequest.items;
+        return result;
       } catch (e) {
         console.warn(e);
       }

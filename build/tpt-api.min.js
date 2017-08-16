@@ -2125,9 +2125,8 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     getHistory: function () {
       var _ref38 = _asyncToGenerator(regeneratorRuntime.mark(function _callee34(_ref37) {
-        var account_id = _ref37.account_id,
-            params = _ref37.params;
-        var url, response;
+        var account_id = _ref37.account_id;
+        var historyRequest, path, result;
         return regeneratorRuntime.wrap(function _callee34$(_context34) {
           while (1) {
             switch (_context34.prev = _context34.next) {
@@ -2137,39 +2136,27 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _this.prepareHeaders();
 
               case 3:
-                url = _this.endpoint + '/v1/accounts/' + account_id + '/portfolio/cash/USD/transactions';
-                _context34.next = 6;
-                return request.get(url, { params: params });
+                historyRequest = new ObjectList();
+                path = _this.endpoint + '/v1/accounts/' + account_id + '/portfolio/cash/USD/transactions';
+                _context34.next = 7;
+                return historyRequest.list(path);
 
-              case 6:
-                response = _context34.sent;
-
-                if (!(response.status === 200)) {
-                  _context34.next = 11;
-                  break;
-                }
-
-                return _context34.abrupt('return', response.data);
+              case 7:
+                result = historyRequest.items;
+                return _context34.abrupt('return', result);
 
               case 11:
-                return _context34.abrupt('return', { error: response.statusText });
-
-              case 12:
-                _context34.next = 17;
-                break;
-
-              case 14:
-                _context34.prev = 14;
+                _context34.prev = 11;
                 _context34.t0 = _context34['catch'](0);
 
                 console.warn(_context34.t0);
 
-              case 17:
+              case 14:
               case 'end':
                 return _context34.stop();
             }
           }
-        }, _callee34, _this, [[0, 14]]);
+        }, _callee34, _this, [[0, 11]]);
       }));
 
       function getHistory(_x30) {
