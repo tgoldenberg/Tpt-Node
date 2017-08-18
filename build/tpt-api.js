@@ -2403,7 +2403,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _this.prepareHeaders();
 
               case 3:
-                url = _this.endpoint + '/v1/market/symbol/' + symbol + '/timeseries/eod';
+                url = _this.endpoint + '/v1/market/symbols/' + symbol + '/timeseries/eod';
                 _context39.next = 6;
                 return request.get(url, { params: params });
 
@@ -2458,7 +2458,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _this.prepareHeaders();
 
               case 3:
-                url = _this.endpoint + '/v1/market/symbol/' + symbol + '/splits';
+                url = _this.endpoint + '/v1/market/symbols/' + symbol + '/splits';
                 _context40.next = 6;
                 return request.get(url, { params: params });
 
@@ -2513,7 +2513,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _this.prepareHeaders();
 
               case 3:
-                url = _this.endpoint + '/v1/market/symbol/' + symbol + '/dividends';
+                url = _this.endpoint + '/v1/market/symbols/' + symbol + '/dividends';
                 _context41.next = 6;
                 return request.get(url, { params: params });
 

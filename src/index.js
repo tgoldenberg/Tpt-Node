@@ -591,7 +591,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     getEndOfDayHistory: async ({ symbol, params }) => {
       try {
         await this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbol/${symbol}/timeseries/eod`;
+        let url = `${this.endpoint}/v1/market/symbols/${symbol}/timeseries/eod`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
@@ -605,7 +605,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     getSplits: async ({ symbol, params }) => {
       try {
         await this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbol/${symbol}/splits`;
+        let url = `${this.endpoint}/v1/market/symbols/${symbol}/splits`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
@@ -619,7 +619,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     getDividends: async ({ symbol, params }) => {
       try {
         await this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbol/${symbol}/dividends`;
+        let url = `${this.endpoint}/v1/market/symbols/${symbol}/dividends`;
         let response = await request.get(url, { params });
         if (response.status === 200) {
           return response.data;
