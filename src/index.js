@@ -731,7 +731,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     getCompanyOwnership: async (options) => {
       try {
         await this.prepareHeaders();
-        let url = `${this.endpoint}/v1/market/symbols/${options.symbol}`;
+        let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/ownership`;
         let response = await request.get(url);
         if (response.status === 200) {
           return response.data;
