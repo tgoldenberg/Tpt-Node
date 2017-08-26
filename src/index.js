@@ -408,7 +408,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          return { error: response.statusText, fullResponse: response };
+          return { error: response.statusText, fullResponse: response.data };
         }
       } catch (e) {
         console.warn(e);
