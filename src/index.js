@@ -243,7 +243,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
           return response.data;
         } else {
           console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -320,7 +324,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
           return response.data;
         } else {
           console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -396,7 +404,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         } else {
 
           console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -428,7 +440,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          return { error: response.statusText, fullResponse: response.data };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error, fullResponse: response.data };
         }
       } catch (e) {
         console.warn(e);
