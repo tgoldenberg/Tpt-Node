@@ -919,7 +919,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _this.prepareHeaders();
 
               case 3:
-                url = _this.endpoint + '/v1/accounts/' + options.account_id + '/applicants/' + applicant_id;
+                url = _this.endpoint + '/v1/accounts/' + options.account_id + '/applicants/' + options.applicant_id;
                 _context11.next = 6;
                 return request.patch(url, options.body);
 

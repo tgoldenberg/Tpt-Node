@@ -186,7 +186,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     updateApplicant: async (options) => {
       try {
         await this.prepareHeaders();
-        let url = `${this.endpoint}/v1/accounts/${options.account_id}/applicants/${applicant_id}`;
+        let url = `${this.endpoint}/v1/accounts/${options.account_id}/applicants/${options.applicant_id}`;
         let response = await request.patch(url, options.body);
         if (response.status === 200) {
           return response.data;
