@@ -168,7 +168,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    updateApplicant: async (options) => {
+    updateAccount: async (options) => {
       try {
         await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}`;
@@ -183,7 +183,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
         console.warn(e);
       }
     },
-    updateAccount: async (options) => {
+    updateApplicant: async (options) => {
       try {
         await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${options.account_id}/applicants/${applicant_id}`;

@@ -853,7 +853,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
 
       return getApplicant;
     }(),
-    updateApplicant: function () {
+    updateAccount: function () {
       var _ref10 = _asyncToGenerator(regeneratorRuntime.mark(function _callee10(options) {
         var url, response;
         return regeneratorRuntime.wrap(function _callee10$(_context10) {
@@ -901,13 +901,13 @@ function Tpt(apiKey, apiSecret, endpoint) {
         }, _callee10, _this, [[0, 15]]);
       }));
 
-      function updateApplicant(_x6) {
+      function updateAccount(_x6) {
         return _ref10.apply(this, arguments);
       }
 
-      return updateApplicant;
+      return updateAccount;
     }(),
-    updateAccount: function () {
+    updateApplicant: function () {
       var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee11(options) {
         var url, response;
         return regeneratorRuntime.wrap(function _callee11$(_context11) {
@@ -955,11 +955,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         }, _callee11, _this, [[0, 15]]);
       }));
 
-      function updateAccount(_x7) {
+      function updateApplicant(_x7) {
         return _ref11.apply(this, arguments);
       }
 
-      return updateAccount;
+      return updateApplicant;
     }()
   };
 
