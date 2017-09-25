@@ -176,8 +176,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -191,8 +194,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -261,8 +267,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -342,8 +351,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -387,8 +399,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -422,8 +437,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -503,8 +521,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
@@ -518,8 +539,11 @@ function Tpt(apiKey, apiSecret, endpoint) {
         if (response.status === 200) {
           return response.data;
         } else {
-          console.warn(response.data);
-          return { error: response.statusText };
+          let error = response.statusText;
+          if (response.data.error) {
+            error = response.data.error;
+          }
+          return { error: error };
         }
       } catch (e) {
         console.warn(e);
