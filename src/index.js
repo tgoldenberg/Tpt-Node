@@ -104,7 +104,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.prepareHeaders = async function() {
     let headers = await this.formatHeaders();
     request.defaults.headers = headers;
-    console.log('> prepare headers: ', headers);
+    // console.log('> prepare headers: ', headers);
   }
 
   this.accounts = {

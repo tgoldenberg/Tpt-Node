@@ -626,9 +626,9 @@ function Tpt(apiKey, apiSecret, endpoint) {
             headers = _context5.sent;
 
             request.defaults.headers = headers;
-            console.log('> prepare headers: ', headers);
+            // console.log('> prepare headers: ', headers);
 
-          case 5:
+          case 4:
           case 'end':
             return _context5.stop();
         }
@@ -855,7 +855,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     updateAccount: function () {
       var _ref10 = _asyncToGenerator(regeneratorRuntime.mark(function _callee10(options) {
-        var url, response;
+        var url, response, error;
         return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
@@ -880,25 +880,29 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _context10.abrupt('return', response.data);
 
               case 11:
-                console.warn(response.data);
-                return _context10.abrupt('return', { error: response.statusText });
+                error = response.statusText;
 
-              case 13:
-                _context10.next = 18;
+                if (response.data.error) {
+                  error = response.data.error;
+                }
+                return _context10.abrupt('return', { error: error });
+
+              case 14:
+                _context10.next = 19;
                 break;
 
-              case 15:
-                _context10.prev = 15;
+              case 16:
+                _context10.prev = 16;
                 _context10.t0 = _context10['catch'](0);
 
                 console.warn(_context10.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context10.stop();
             }
           }
-        }, _callee10, _this, [[0, 15]]);
+        }, _callee10, _this, [[0, 16]]);
       }));
 
       function updateAccount(_x6) {
@@ -909,7 +913,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     updateApplicant: function () {
       var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee11(options) {
-        var url, response;
+        var url, response, error;
         return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
@@ -934,25 +938,29 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _context11.abrupt('return', response.data);
 
               case 11:
-                console.warn(response.data);
-                return _context11.abrupt('return', { error: response.statusText });
+                error = response.statusText;
 
-              case 13:
-                _context11.next = 18;
+                if (response.data.error) {
+                  error = response.data.error;
+                }
+                return _context11.abrupt('return', { error: error });
+
+              case 14:
+                _context11.next = 19;
                 break;
 
-              case 15:
-                _context11.prev = 15;
+              case 16:
+                _context11.prev = 16;
                 _context11.t0 = _context11['catch'](0);
 
                 console.warn(_context11.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context11.stop();
             }
           }
-        }, _callee11, _this, [[0, 15]]);
+        }, _callee11, _this, [[0, 16]]);
       }));
 
       function updateApplicant(_x7) {
@@ -1136,7 +1144,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     cancel: function () {
       var _ref15 = _asyncToGenerator(regeneratorRuntime.mark(function _callee15(options) {
-        var url, response;
+        var url, response, error;
         return regeneratorRuntime.wrap(function _callee15$(_context15) {
           while (1) {
             switch (_context15.prev = _context15.next) {
@@ -1161,25 +1169,29 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _context15.abrupt('return', response.data);
 
               case 11:
-                console.warn(response.data);
-                return _context15.abrupt('return', { error: response.statusText });
+                error = response.statusText;
 
-              case 13:
-                _context15.next = 18;
+                if (response.data.error) {
+                  error = response.data.error;
+                }
+                return _context15.abrupt('return', { error: error });
+
+              case 14:
+                _context15.next = 19;
                 break;
 
-              case 15:
-                _context15.prev = 15;
+              case 16:
+                _context15.prev = 16;
                 _context15.t0 = _context15['catch'](0);
 
                 console.warn(_context15.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context15.stop();
             }
           }
-        }, _callee15, _this, [[0, 15]]);
+        }, _callee15, _this, [[0, 16]]);
       }));
 
       function cancel(_x11) {
@@ -1404,7 +1416,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     delete: function () {
       var _ref21 = _asyncToGenerator(regeneratorRuntime.mark(function _callee20(options) {
-        var url, response;
+        var url, response, error;
         return regeneratorRuntime.wrap(function _callee20$(_context20) {
           while (1) {
             switch (_context20.prev = _context20.next) {
@@ -1429,25 +1441,29 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _context20.abrupt('return', response.data);
 
               case 11:
-                console.warn(response.data);
-                return _context20.abrupt('return', { error: response.statusText });
+                error = response.statusText;
 
-              case 13:
-                _context20.next = 18;
+                if (response.data.error) {
+                  error = response.data.error;
+                }
+                return _context20.abrupt('return', { error: error });
+
+              case 14:
+                _context20.next = 19;
                 break;
 
-              case 15:
-                _context20.prev = 15;
+              case 16:
+                _context20.prev = 16;
                 _context20.t0 = _context20['catch'](0);
 
                 console.warn(_context20.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context20.stop();
             }
           }
-        }, _callee20, _this, [[0, 15]]);
+        }, _callee20, _this, [[0, 16]]);
       }));
 
       function _delete(_x16) {
@@ -1566,7 +1582,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     update: function () {
       var _ref24 = _asyncToGenerator(regeneratorRuntime.mark(function _callee23(options) {
-        var url, response;
+        var url, response, error;
         return regeneratorRuntime.wrap(function _callee23$(_context23) {
           while (1) {
             switch (_context23.prev = _context23.next) {
@@ -1591,25 +1607,29 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _context23.abrupt('return', response.data);
 
               case 11:
-                console.warn(response.data);
-                return _context23.abrupt('return', { error: response.statusText });
+                error = response.statusText;
 
-              case 13:
-                _context23.next = 18;
+                if (response.data.error) {
+                  error = response.data.error;
+                }
+                return _context23.abrupt('return', { error: error });
+
+              case 14:
+                _context23.next = 19;
                 break;
 
-              case 15:
-                _context23.prev = 15;
+              case 16:
+                _context23.prev = 16;
                 _context23.t0 = _context23['catch'](0);
 
                 console.warn(_context23.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context23.stop();
             }
           }
-        }, _callee23, _this, [[0, 15]]);
+        }, _callee23, _this, [[0, 16]]);
       }));
 
       function update(_x19) {
@@ -1680,7 +1700,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     reverify: function () {
       var _ref26 = _asyncToGenerator(regeneratorRuntime.mark(function _callee25(options) {
-        var url, response;
+        var url, response, error;
         return regeneratorRuntime.wrap(function _callee25$(_context25) {
           while (1) {
             switch (_context25.prev = _context25.next) {
@@ -1705,25 +1725,29 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _context25.abrupt('return', response.data);
 
               case 11:
-                console.warn(response.data);
-                return _context25.abrupt('return', { error: response.statusText });
+                error = response.statusText;
 
-              case 13:
-                _context25.next = 18;
+                if (response.data.error) {
+                  error = response.data.error;
+                }
+                return _context25.abrupt('return', { error: error });
+
+              case 14:
+                _context25.next = 19;
                 break;
 
-              case 15:
-                _context25.prev = 15;
+              case 16:
+                _context25.prev = 16;
                 _context25.t0 = _context25['catch'](0);
 
                 console.warn(_context25.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context25.stop();
             }
           }
-        }, _callee25, _this, [[0, 15]]);
+        }, _callee25, _this, [[0, 16]]);
       }));
 
       function reverify(_x21) {
@@ -1952,7 +1976,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     cancel: function () {
       var _ref33 = _asyncToGenerator(regeneratorRuntime.mark(function _callee30(options) {
-        var url, response;
+        var url, response, error;
         return regeneratorRuntime.wrap(function _callee30$(_context30) {
           while (1) {
             switch (_context30.prev = _context30.next) {
@@ -1977,25 +2001,29 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _context30.abrupt('return', response.data);
 
               case 11:
-                console.warn(response.data);
-                return _context30.abrupt('return', { error: response.statusText });
+                error = response.statusText;
 
-              case 13:
-                _context30.next = 18;
+                if (response.data.error) {
+                  error = response.data.error;
+                }
+                return _context30.abrupt('return', { error: error });
+
+              case 14:
+                _context30.next = 19;
                 break;
 
-              case 15:
-                _context30.prev = 15;
+              case 16:
+                _context30.prev = 16;
                 _context30.t0 = _context30['catch'](0);
 
                 console.warn(_context30.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context30.stop();
             }
           }
-        }, _callee30, _this, [[0, 15]]);
+        }, _callee30, _this, [[0, 16]]);
       }));
 
       function cancel(_x26) {
@@ -2006,7 +2034,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     }(),
     update: function () {
       var _ref34 = _asyncToGenerator(regeneratorRuntime.mark(function _callee31(options) {
-        var url, response;
+        var url, response, error;
         return regeneratorRuntime.wrap(function _callee31$(_context31) {
           while (1) {
             switch (_context31.prev = _context31.next) {
@@ -2031,25 +2059,29 @@ function Tpt(apiKey, apiSecret, endpoint) {
                 return _context31.abrupt('return', response.data);
 
               case 11:
-                console.warn(response.data);
-                return _context31.abrupt('return', { error: response.statusText });
+                error = response.statusText;
 
-              case 13:
-                _context31.next = 18;
+                if (response.data.error) {
+                  error = response.data.error;
+                }
+                return _context31.abrupt('return', { error: error });
+
+              case 14:
+                _context31.next = 19;
                 break;
 
-              case 15:
-                _context31.prev = 15;
+              case 16:
+                _context31.prev = 16;
                 _context31.t0 = _context31['catch'](0);
 
                 console.warn(_context31.t0);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context31.stop();
             }
           }
-        }, _callee31, _this, [[0, 15]]);
+        }, _callee31, _this, [[0, 16]]);
       }));
 
       function update(_x27) {
