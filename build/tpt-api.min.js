@@ -1827,46 +1827,44 @@ function Tpt(apiKey, apiSecret, endpoint) {
             switch (_context27.prev = _context27.next) {
               case 0:
                 _context27.prev = 0;
-
-                console.log('> Get orders: ', account_id, params);
-                _context27.next = 4;
+                _context27.next = 3;
                 return _this.prepareHeaders();
 
-              case 4:
+              case 3:
                 url = _this.endpoint + '/v1/accounts/' + account_id + '/orders';
-                _context27.next = 7;
+                _context27.next = 6;
                 return request.get(url, { params: params });
 
-              case 7:
+              case 6:
                 response = _context27.sent;
 
                 if (!(response.status === 200)) {
-                  _context27.next = 12;
+                  _context27.next = 11;
                   break;
                 }
 
                 return _context27.abrupt('return', response.data);
 
-              case 12:
+              case 11:
                 console.warn(response.data);
                 return _context27.abrupt('return', { error: response.statusText });
 
-              case 14:
-                _context27.next = 19;
+              case 13:
+                _context27.next = 18;
                 break;
 
-              case 16:
-                _context27.prev = 16;
+              case 15:
+                _context27.prev = 15;
                 _context27.t0 = _context27['catch'](0);
 
                 console.warn(_context27.t0);
 
-              case 19:
+              case 18:
               case 'end':
                 return _context27.stop();
             }
           }
-        }, _callee27, _this, [[0, 16]]);
+        }, _callee27, _this, [[0, 15]]);
       }));
 
       function get(_x23) {

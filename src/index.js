@@ -470,7 +470,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     get: async ({ account_id, params }) => {
       try {
-        console.log('> Get orders: ', account_id, params);
+        // console.log('> Get orders: ', account_id, params);
         await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${account_id}/orders`;
         let response = await request.get(url, { params: params });
