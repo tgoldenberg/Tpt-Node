@@ -26,7 +26,7 @@ class ObjectList {
   async list(path) {
     try {
       var response = await request.get(path);
-      console.log('> transfer response: ', response.statusText);
+      // console.log('> transfer response: ', response.statusText);
       if (response.status !== 200) {
         return;
       }

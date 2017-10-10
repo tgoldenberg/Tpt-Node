@@ -434,48 +434,46 @@ var ObjectList = function () {
               case 3:
                 response = _context.sent;
 
-                console.log('> transfer response: ', response.statusText);
-
                 if (!(response.status !== 200)) {
-                  _context.next = 7;
+                  _context.next = 6;
                   break;
                 }
 
                 return _context.abrupt('return');
 
-              case 7:
+              case 6:
                 this.items = [].concat(_toConsumableArray(this.items), _toConsumableArray(response.data.items));
                 hasTail = (0, _has2.default)(response.data, '_tail');
 
                 if (!(!hasTail || response.data.items.length < 10)) {
-                  _context.next = 13;
+                  _context.next = 12;
                   break;
                 }
 
                 return _context.abrupt('return');
 
-              case 13:
+              case 12:
                 url = '' + process.env.TPT_ENDPOINT + response.data._tail;
-                _context.next = 16;
+                _context.next = 15;
                 return this.list(url);
 
-              case 16:
-                _context.next = 22;
+              case 15:
+                _context.next = 21;
                 break;
 
-              case 18:
-                _context.prev = 18;
+              case 17:
+                _context.prev = 17;
                 _context.t0 = _context['catch'](0);
 
                 console.warn(_context.t0);
                 return _context.abrupt('return', []);
 
-              case 22:
+              case 21:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 18]]);
+        }, _callee, this, [[0, 17]]);
       }));
 
       function list(_x) {
