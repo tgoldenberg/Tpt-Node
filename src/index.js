@@ -782,7 +782,7 @@ function Tpt(apiKey, apiSecret, endpoint) {
       try {
         await this.prepareHeaders();
         let url = `${this.endpoint}/v1/market/symbols/${options.symbol}/company/financials`;
-        let response = await request.get(url);
+        let response = await request.get(url, { params: options.params });
         if (response.status === 200) {
           return response.data;
         } else {
