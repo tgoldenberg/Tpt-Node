@@ -1,6 +1,7 @@
 #### accounts
 
-  - **create**              `({ body: any, account_id: string })`
+  - **create**              `({ body: any, account_id: string })`
+  
   - **get**                 `({ account_id: string })`
   - **getStatus**           `({ account_id: string })`
   - **getApplicant**        `({ account_id: string, applicant_id: string })`
