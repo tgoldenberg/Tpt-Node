@@ -2,7 +2,7 @@ TPT node is a wrapper of Third Party Trade's API for easier usage. Created and m
 ---
 - [How to use](#how-to-use)
   - [Setup](#setup)
-  - [Methods](#Methods)
+  - [Methods](#methods)
 
 
 ## How to use
