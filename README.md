@@ -1,4 +1,4 @@
-TPT node is a wrapper of Third Party Trade's API for easier usage. Created and maintained by the developers at 
+TPT node is a wrapper of Third Party Trade's API for easier usage. Created and maintained by the developers at [Commandiv](https://app.commandiv.com)
 ---
 - [How to use](#how-to-use)
   - [Setup](#setup)
@@ -32,12 +32,8 @@ import tpt from './tpt';
 
 async someFunction() {
 	//	Example to retrieve User info
-	const account_id = 'Tpt_account_id';
+	const account_id = 'TPT_ACCOUNT_ID';
 	const tptData = await tpt.accounts.get({ account_id });
-	
-	// If account_id is stored in another variable name
-	// const other_variable_name = 'Tpt_account_id';
-	// const tptData = await tpt.accounts.get({ account_id: other_variable_name });
 }
 ```
 ---
