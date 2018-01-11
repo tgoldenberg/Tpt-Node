@@ -1,3 +1,51 @@
+TPT node is a wrapper of Third Party Trade's API for easier usage. Created and maintained by the developers at 
+---
+- [How to use](#how-to-use)
+  - [Setup](#setup)
+  - [Methods](#Methods)
+
+
+## How to use
+### Setup
+- Install the package with npm:
+
+```
+npm install @commandiv/tpt-api
+```
+<br></br>
+
+- Initialize the **TPT node object** in a `tpt.js` file like this (or directly instantiate it when you need it): 
+
+```
+import Tpt from '@commandiv/tpt-api';
+
+const tpt = new Tpt(process.env.TPT_API_KEY, process.env.TPT_API_SECRET, process.env.TPT_ENDPOINT);
+
+export default tpt;
+```
+> Make sure to update your environment variables with your TPT credentials.
+
+<br></br>
+
+- Import the instantiated **TPT node object** where needed to start using the API:
+
+```
+import tpt from './tpt';
+
+async someFunction() {
+	//	Example to retrieve User info
+	const account_id = 'Tpt_account_id';
+	const tptData = await tpt.accounts.get({ account_id });
+	
+	// If account_id is stored in another variable name
+	// const other_variable_name = 'Tpt_account_id';
+	// const tptData = await tpt.accounts.get({ account_id: other_variable_name });
+}
+```
+--
+### Methods
+> For returned result object structure. Please refer to [TPT documentation](https://portal.thirdparty.com/docs/)
+
 #### accounts
 
   - **create**              `({ body: any, account_id: string })`
@@ -103,23 +151,4 @@
   - **getCompanyProfile**   `({ symbol: string })`
   
   - **getCompanyRatios**    `({ symbol: string })`
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+ 
