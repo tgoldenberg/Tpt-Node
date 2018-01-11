@@ -12,7 +12,6 @@ TPT node is a wrapper of Third Party Trade's API for easier usage. Created and m
 ```
 npm install @commandiv/tpt-api
 ```
-<br></br>
 
 - Initialize the **TPT node object** in a `tpt.js` file like this (or directly instantiate it when you need it): 
 
@@ -25,7 +24,6 @@ export default tpt;
 ```
 > Make sure to update your environment variables with your TPT credentials.
 
-<br></br>
 
 - Import the instantiated **TPT node object** where needed to start using the API:
 
