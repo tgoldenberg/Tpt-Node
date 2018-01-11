@@ -42,7 +42,7 @@ async someFunction() {
 	// const tptData = await tpt.accounts.get({ account_id: other_variable_name });
 }
 ```
---
+---
 ### Methods
 > For returned result object structure. Please refer to [TPT documentation](https://portal.thirdparty.com/docs/)
 
