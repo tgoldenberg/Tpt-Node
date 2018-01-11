@@ -40,7 +40,7 @@ async someFunction() {
 ### Methods
 > For returned result object structure. Please refer to [TPT documentation](https://portal.thirdparty.com/docs/)
 
-#### accounts
+#### [accounts](https://portal.thirdparty.com/docs/accounts.html#feature-accounts)
 
   - **create**              `({ body: any, account_id: string })`
   
@@ -54,13 +54,13 @@ async someFunction() {
   
   - **updateApplicant**     `({ account_id: string, applicant_id: string, body: any })`
   
-#### documents
+#### [documents](https://portal.thirdparty.com/docs/documents.html)
 
   - **getStatements**       `({ account_id: string })`
   
   - **getConfirmations**    `({ account_id: string })`
   
-#### transfers
+#### [transfers](https://portal.thirdparty.com/docs/funding.html#feature-transfers)
 
   - **create**              `({ account_id: string, transfer_id: string, body: any })`
   
@@ -72,7 +72,7 @@ async someFunction() {
   
   - **find**                `({ account_id: string, transfer_id: string })`
   
-#### sources
+#### [sources](https://portal.thirdparty.com/docs/funding.html#feature-sources)
 
   - **create**              `({ account_id: string, source_id: string, body: any })`
   
@@ -88,7 +88,7 @@ async someFunction() {
   
   - **reverify**            `({ account_id: string, source_id: string })`
   
-#### orders 
+#### [orders](https://portal.thirdparty.com/docs/oms.html#feature-standard orders) 
 
   - **create**              `({ account_id: string, order_id: string, body: any })`
   
@@ -102,7 +102,7 @@ async someFunction() {
   
   - **update**              `({ account_id: string, order_id: string, body: any })`
   
-#### portfolio
+#### [portfolio](https://portal.thirdparty.com/docs/portfolio.html)
   
   - **getCash**             `({ account_id: string })`
   
@@ -112,7 +112,7 @@ async someFunction() {
   
   - **symbolHistory**       `({ account_id: string, symbol: string, params: any })`
   
-#### market
+#### [market](https://portal.thirdparty.com/docs/market-data.html)
 
   - **getSingleQuote**      `({ symbol: string, params: any })`
   
