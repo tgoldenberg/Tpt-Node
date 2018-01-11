@@ -88,7 +88,7 @@ async someFunction() {
   
   - **reverify**            `({ account_id: string, source_id: string })`
   
-#### [orders](https://portal.thirdparty.com/docs/oms.html#feature-standard orders) 
+#### [orders](https://portal.thirdparty.com/docs/oms.html#feature-standard) 
 
   - **create**              `({ account_id: string, order_id: string, body: any })`
   
