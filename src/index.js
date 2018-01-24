@@ -26,7 +26,6 @@ class ObjectList {
   async list(path) {
     try {
       var response = await request.get(path);
-      // console.log('> transfer response: ', response.statusText);
       if (response.status !== 200) {
         return;
       }
@@ -104,7 +103,6 @@ function Tpt(apiKey, apiSecret, endpoint) {
   this.prepareHeaders = async function() {
     let headers = await this.formatHeaders();
     request.defaults.headers = headers;
-    // console.log('> prepare headers: ', headers);
   }
 
   this.accounts = {
@@ -300,7 +298,6 @@ function Tpt(apiKey, apiSecret, endpoint) {
         await transferRequest.list(path);
 
         let result = transferRequest.items;
-        // console.log('> get all transfers: ', result);
         return result;
       } catch (e) {
         console.warn(e);
@@ -470,7 +467,6 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
     get: async ({ account_id, params }) => {
       try {
-        // console.log('> Get orders: ', account_id, params);
         await this.prepareHeaders();
         let url = `${this.endpoint}/v1/accounts/${account_id}/orders`;
         let response = await request.get(url, { params: params });
@@ -492,7 +488,6 @@ function Tpt(apiKey, apiSecret, endpoint) {
         await orderRequest.list(path);
 
         let result = orderRequest.items;
-        // console.log('> get all orders: ', result);
         return result;
       } catch (e) {
         console.warn(e);
@@ -855,10 +850,5 @@ function Tpt(apiKey, apiSecret, endpoint) {
     },
   };
 };
-
-// let t = new Tpt(process.env.TPT_API_KEY, process.env.TPT_API_SECRET, process.env.TPT_ENDPOINT);
-// let account_id = 'b11b3629-aed8-41ca-b916-16bc2a097369';
-//
-// t.transfers.getAll({ account_id });
 
 export default Tpt;
